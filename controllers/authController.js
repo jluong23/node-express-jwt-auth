@@ -1,7 +1,6 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const handleErrors = (err) => {
-    console.log(err.message, err.code);
     let errors = {
         "email" : "",
         "password": "",
@@ -51,7 +50,9 @@ const sign_up_post = async (req, res) => {
         res.status(201).json({user: user._id});
 
     }catch(err){
-        res.status(400).json(handleErrors(err));
+        //could not register, send feedback to client after handling errors
+        const errors = handleErrors(err);
+        res.status(400).json({errors});
     }
 }
 
