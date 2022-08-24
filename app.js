@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const app = express();
 
@@ -10,7 +11,10 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 // database connection
-const dbURI = 'mongodb+srv://shaun:test1234@cluster0.del96.mongodb.net/node-auth';
+const DB_USER = process.env.DB_USER;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB_NAME = "user_authentication_jwt";
+const dbURI = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@nodetest.ycbuew5.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
   .then((result) => app.listen(3000))
   .catch((err) => console.log(err));
