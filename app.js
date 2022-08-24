@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const authRoutes =  require("./routes/authRoutes")
 require('dotenv').config();
 
 const app = express();
@@ -15,10 +16,15 @@ const DB_USER = process.env.DB_USER;
 const DB_PASSWORD = process.env.DB_PASSWORD;
 const DB_NAME = "user_authentication_jwt";
 const dbURI = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@nodetest.ycbuew5.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
-  .then((result) => app.listen(3000))
+
+mongoose.connect(dbURI, { useUnifiedTopology: true, useNewUrlParser: true })
+  .then((result) => {
+    console.log("connected to DB");
+    app.listen(3000);
+  })
   .catch((err) => console.log(err));
 
 // routes
 app.get('/', (req, res) => res.render('home'));
 app.get('/smoothies', (req, res) => res.render('smoothies'));
+app.use(authRoutes);
