@@ -1,5 +1,5 @@
 const User = require('../models/User');
-
+const jwt = require('jsonwebtoken');
 const handleErrors = (err) => {
     console.log(err.message, err.code);
     let errors = {
@@ -19,6 +19,13 @@ const handleErrors = (err) => {
     }
     return errors;
 }
+const maxTokenAgeSeconds = 24*60*60 //JWT max token age in seconds
+// creates a jwt token given a userid
+const createToken = (userId) => {
+    return jwt.sign({userId}, process.env.JWT_SECRET, {
+        expiresIn: maxTokenAgeSeconds
+    })
+}
 
 const sign_up_get = (req, res) => {
     res.render('signup');
@@ -32,7 +39,17 @@ const sign_up_post = async (req, res) => {
     const {email, password} = req.body;
     try{
         const user = await User.create({email, password});
-        res.status(201).json(user);
+        const token = createToken(user._id);
+        
+        // set a jwt cookie on response.  
+        res.cookie('jwt', token, {
+            httpOnly: true, //Only transmitable by http
+            maxAge: maxTokenAgeSeconds * 1000, // Max age is in ms, so *1000
+            sameSite: "strict"
+            
+        })
+        res.status(201).json({user: user._id});
+
     }catch(err){
         res.status(400).json(handleErrors(err));
     }
