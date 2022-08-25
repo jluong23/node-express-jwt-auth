@@ -32,7 +32,6 @@
                 headers: {'Content-Type': 'application/json'}
             })
             const data = await response.json();
-            console.log(data);
             if(data.errors){
                 // unsuccessful login, 
                 // display form validation errors returned from server
@@ -40,8 +39,7 @@
                 passwordError.textContent = data.errors.password
             }else if(data.user){
                 // login successful, redirect to index
-                // location.assign('/');
-                console.log(data.user);
+                location.assign('/');
             }
 
         }catch(err){

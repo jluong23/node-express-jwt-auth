@@ -1,7 +1,8 @@
 const cookieParser = require('cookie-parser');
 const express = require('express');
 const mongoose = require('mongoose');
-const authRoutes =  require("./routes/authRoutes")
+const authRoutes =  require("./routes/authRoutes");
+const {requireAuth, checkUser} = require("./middleware/authMiddleware");
 require('dotenv').config();
 
 const app = express();
@@ -28,6 +29,7 @@ mongoose.connect(dbURI, { useUnifiedTopology: true, useNewUrlParser: true })
   .catch((err) => console.log(err));
 
 // routes
-app.get('/', (req, res) => res.render('home'));
-app.get('/smoothies', (req, res) => res.render('smoothies'));
+app.get('*', checkUser); //sets res.locals.user if logged in for all routes
+app.get('/', (req, res) => res.render('home'))
+app.get('/smoothies', requireAuth, (req, res) => res.render('smoothies'));
 app.use(authRoutes);

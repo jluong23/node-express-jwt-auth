@@ -95,4 +95,10 @@ const login_post = async (req, res) => {
     }
 }
 
-module.exports = {sign_up_get, login_get, sign_up_post, login_post}
+const logout_get = (req, res) => {
+    // set jwt cookie to empty string, expiring instantly
+    res.cookie('jwt', '', {maxAge: 1 });
+    res.redirect('/');
+}
+
+module.exports = {sign_up_get, login_get, sign_up_post, login_post, logout_get}
