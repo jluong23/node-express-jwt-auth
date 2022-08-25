@@ -29,7 +29,10 @@ mongoose.connect(dbURI, { useUnifiedTopology: true, useNewUrlParser: true })
   .catch((err) => console.log(err));
 
 // routes
-app.get('*', checkUser); //sets res.locals.user if logged in for all routes
-app.get('/', (req, res) => res.render('home'))
+app.get('/*', checkUser); //sets res.locals.user if logged in for all routes
+app.get('/', (req, res) => {
+  res.render('home');
+  console.log("test");
+})
 app.get('/smoothies', requireAuth, (req, res) => res.render('smoothies'));
 app.use(authRoutes);

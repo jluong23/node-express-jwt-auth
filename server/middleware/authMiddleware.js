@@ -25,7 +25,6 @@ const requireAuth = (req, res, next) => {
 // similar to requireAuth, verifies a JWT token but assigns res.locals.user to the current user.
 const checkUser = (req,res,next) => {
     const token = req.cookies.jwt;
-
     if(token){
         // verify the token using our jwt app secret
         jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
