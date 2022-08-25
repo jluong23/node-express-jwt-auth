@@ -8,14 +8,6 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import './assets/styles.css';
 function App() {
-  const navBar = (
-    <nav>
-      <a href="/">Home</a> <br/>
-      <a href="/log-in">Log In</a> <br/>
-      <a href="/sign-up">Sign Up</a> <br/>
-    </nav>
-  )
-
   return (
     <BrowserRouter>
       <Header/>

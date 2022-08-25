@@ -6,7 +6,7 @@ const Header = () => {
                 <li>Welcome User!</li>
                 <li><a href="/logout">Logout</a></li>
                 <li><a href="/login">Log In</a></li>
-                <li><a href="/signup" class="btn">Sign Up</a></li>
+                <li><a href="/signup" className="btn">Sign Up</a></li>
             </ul>
       </nav>
     )

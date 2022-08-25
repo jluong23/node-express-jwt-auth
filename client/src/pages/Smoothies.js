@@ -18,10 +18,10 @@ const Smoothies = () => {
 
 
     return (
-        <ul class="recipes">
+        <ul className="recipes">
             {smoothies.map((smoothie) => {
                 return (
-                    <li class="recipe">
+                    <li key={smoothie.name} className="recipe">
                         <img src={smoothieImage} alt="smoothie recipe icon"/>
                         <h4>{smoothie.name}</h4>
                         <p>{smoothie.description}</p>
