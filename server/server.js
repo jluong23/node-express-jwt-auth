@@ -24,7 +24,7 @@ const dbURI = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@nodetest.ycbuew5.mongodb.
 mongoose.connect(dbURI, { useUnifiedTopology: true, useNewUrlParser: true })
   .then((result) => {
     console.log("connected to DB");
-    app.listen(3000);
+    app.listen(5000);
   })
   .catch((err) => console.log(err));
 
